@@ -3,6 +3,7 @@ import scenes from './scenes';
 import {ElMessage, ElNotification} from 'element-plus';
 import achievements from './game/achievements';
 import quests from './game/quests';
+import i18n from './locale';
 
 export interface ItemInstance {
   id: string;
@@ -117,7 +118,10 @@ const useStat = defineStore('stat', {
       if (!achievement) {
         ElMessage.error(`Achievement ${id} not exist!`)
       } else if (!this.achievements[id]) {
-        ElNotification({ title: achievement.name, message: achievement.description })
+        ElNotification({ 
+          title: achievement.name[i18n.global.locale], 
+          message: achievement.description[i18n.global.locale],
+        })
         this.achievements[id] = true
       }
     },

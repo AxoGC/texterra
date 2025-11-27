@@ -11,3 +11,23 @@
 .el-table {
   --el-bg-color: transparent;
 }
+
+.bg-main {
+  @apply bg-gray-50 dark:bg-gray-900;
+}
+
+.bg-subtle {
+  @apply bg-white dark:bg-gray-800;
+}
+
+.bg-tertiary {
+  @apply bg-gray-100 dark:bg-gray-950;
+}
+
+.text-main {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.text-subtle {
+  @apply text-gray-500 dark:text-gray-400;
+}

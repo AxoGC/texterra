@@ -27,7 +27,7 @@ const option = ref<EChartsOption>({
     trigger: 'item',
   },
   radar: {
-    indicator: Object.keys(s.attributes).map(key => ({ name: t(`attributes.${key}`), max: 100 })),
+    indicator: Object.keys(s.attributes).map(key => ({ name: t(key), max: 100 })),
     radius: '70%',
   },
   series: [{
@@ -55,10 +55,10 @@ const option = ref<EChartsOption>({
       <div class="basis-1/2 card flex flex-col gap-4">
         <div class="text-lg">{{t('attributeTitle')}}</div>
         <div class="flex flex-col gap-4">
-          <el-popover v-for="value, key in s.attributes" :content="t(`attributeNotes.${key}`)" placement="right">
+          <el-popover v-for="value, key in s.attributes" :content="t(`${key}Note`)" placement="right">
             <template #reference>
               <div class="flex gap-2">
-                <div class="w-20">{{t(`attributes.${key}`)}}</div>
+                <div class="w-20">{{t(key)}}</div>
                 <el-progress class="grow" :percentage="value" text-inside :stroke-width="28" />
               </div>
             </template>
