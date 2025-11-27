@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --el-border-radius-base: 16px;
+}
+
+.card {
+  @apply bg-white dark:bg-gray-800 p-4 rounded-2xl;
+}
+
+.el-table {
+  --el-bg-color: transparent;
+}
