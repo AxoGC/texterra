@@ -45,7 +45,7 @@ registerMap('gamemap', gamemap as any)
 </script>
 
 <template>
-  <div class="h-screen p-4 flex flex-col gap-4">
+  <div class="h-full p-4 flex flex-col gap-4">
 
     <div class="card flex items-center gap-4">
       <el-button :icon="ArrowLeft" @click="s.backScene">

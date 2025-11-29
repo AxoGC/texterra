@@ -14,7 +14,7 @@ const md = useBreakpoints(breakpointsTailwind).greaterOrEqual('md')
 
 <template>
   <div class="h-screen max-w-6xl mx-auto flex flex-col md:flex-row">
-    <div class="w-64 bg-white dark:bg-gray-800 overflow-auto">
+    <div class="bg-white dark:bg-gray-800 overflow-auto">
       <sidebar-desktop v-if="md" />
       <sidebar-mobile v-else />
     </div>

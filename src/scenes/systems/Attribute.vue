@@ -51,7 +51,7 @@ const option = ref<EChartsOption>({
       <div class="text-lg">{{t('attribute')}}</div>
     </div>
 
-    <div class="flex gap-4">
+    <div class="flex flex-col md:flex-row gap-4">
 
       <div class="basis-1/2 card flex flex-col gap-4">
         <div class="text-lg">{{t('attributeTitle')}}</div>

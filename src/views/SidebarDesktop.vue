@@ -23,11 +23,13 @@ use([
 
 const s = useStat()
 
-const { t } = useI18n({ messages: {
+const { t } = useI18n({ 
+  messages: {
   zh: {
     more: '更多',
     quest: '任务',
     item: '物品',
+    use: '使用',
     About: '关于',
     Attribute: '属性',
     Achievement: '成就',
@@ -45,7 +47,8 @@ const { t } = useI18n({ messages: {
     weekday7: '星期日',
     ad: '广告',
   },
-} })
+  },
+})
 
 const option = ref<EChartsOption>({
   geo: {
@@ -82,7 +85,7 @@ const curQuestStep = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-full flex flex-col">
+  <div class="w-64 min-h-full flex flex-col">
 
     <v-chart class="aspect-video" :option="option" autoresize />
     <div class="h-px bg-tertiary" />
@@ -124,11 +127,12 @@ const curQuestStep = computed(() => {
           v-for="item in s.items.slice(0, 8)" 
           class="bg-tertiary rounded-2xl aspect-square relative flex justify-center items-center"
         >
-          <el-popover
-            v-if="items[item.id]"
-            :title="items[item.id]?.name[$i18n.locale]"
-            :content="items[item.id]?.description[$i18n.locale]"
-          >
+          <el-popover v-if="items[item.id]" popper-class="p-2!">
+            <div class="text-base">{{items[item.id]?.name[$i18n.locale]}}</div>
+            <div class="text-sm">{{items[item.id]?.description[$i18n.locale]}}</div>
+            <el-button v-if="items[item.id]?.effect" size="small" :text="false" class="mt-1">
+              {{t('use')}}
+            </el-button>
             <template #reference>
               <div class="text-2xl">{{items[item.id]?.icon}}</div>
             </template>
@@ -139,15 +143,14 @@ const curQuestStep = computed(() => {
     </div>
 
     <div class="px-4 py-2 grid grid-cols-2 gap-2">
-      <el-config-provider :button="{ text: false, round: true }">
-        <el-button
-          class="ml-0!"
-          v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'About', 'Community']"
-          @click="s.toScene(scene)"
-        >
-          {{t(scene)}}
-        </el-button>
-      </el-config-provider>
+      <el-button
+        class="ml-0!"
+        v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'About', 'Community']"
+        @click="s.toScene(scene)"
+        :text="false"
+      >
+        {{t(scene)}}
+      </el-button>
     </div>
 
   </div>

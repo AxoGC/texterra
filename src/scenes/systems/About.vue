@@ -5,7 +5,9 @@ import {useI18n} from 'vue-i18n';
 
 const { t } = useI18n({
   messages: {
-
+    zh: {
+      title: '关于',
+    },
   },
 })
 
@@ -19,6 +21,7 @@ const s = useStat()
       <el-button @click="s.backScene" :icon="ArrowLeft">
         {{t('back')}}
       </el-button>
+      <div class="text-lg">{{t('title')}}</div>
     </div>
 
   </div>
