@@ -13,6 +13,7 @@ const { t } = useI18n({
     zh: {
       item: '物品',
       more: '更多',
+      use: '使用',
       About: '关于',
       Attribute: '属性',
       Achievement: '成就',
