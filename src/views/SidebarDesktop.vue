@@ -2,8 +2,23 @@
 import quests from '@/game/quests';
 import useStat from '@/stat';
 import {ArrowRight} from '@element-plus/icons-vue';
-import {computed} from 'vue';
+import type {EChartsOption} from 'echarts';
+import {GeoComponent, TooltipComponent, VisualMapComponent} from 'echarts/components';
+import {registerMap, use} from 'echarts/core';
+import {computed, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import VChart from 'vue-echarts';
+import {CanvasRenderer} from 'echarts/renderers';
+import gamemap from '@/gamemap.json';
+import {ScatterChart} from 'echarts/charts';
+
+use([
+  ScatterChart,
+  TooltipComponent,
+  GeoComponent,
+  VisualMapComponent,
+  CanvasRenderer,
+])
 
 const s = useStat()
 
@@ -12,13 +27,13 @@ const { t } = useI18n({ messages: {
     more: '更多',
     quest: '任务',
     item: '物品',
+    About: '关于',
     Attribute: '属性',
     Achievement: '成就',
     Save: '存档',
     Cheat: '作弊',
     Map: '地图',
     Setting: '设置',
-    Donation: '捐款',
     Account: '账户',
     weekday1: '星期一',
     weekday2: '星期二',
@@ -30,6 +45,20 @@ const { t } = useI18n({ messages: {
     ad: '广告',
   },
 } })
+
+const option = ref<EChartsOption>({
+  geo: {
+    map: 'gamemap',
+    roam: true,
+    label: {
+      show: true,
+      color: '#555'
+    }
+  },
+  tooltip: {},
+})
+
+registerMap('gamemap', gamemap as any)
 
 const curQuest = computed(() => {
   const curQuestId = s.questOrder[0]
@@ -53,11 +82,8 @@ const curQuestStep = computed(() => {
 <template>
   <div class="min-h-full flex flex-col">
 
-    <a class="aspect-video bg-[url('/ad.jpg')] bg-cover bg-center" href="https://www.axogc.net">
-      <div class="h-full bg-black/15 p-1 text-white">
-        {{t('ad')}}
-      </div>
-    </a>
+    <v-chart class="aspect-video" :option="option" autoresize>
+    </v-chart>
 
     <div class="px-4 py-2 flex flex-col gap-2">
       <div class="flex justify-between text-sm">
@@ -101,7 +127,7 @@ const curQuestStep = computed(() => {
       <el-config-provider :button="{ text: false, round: true }">
         <el-button
           class="ml-0!"
-          v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'Donation', 'Account']"
+          v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'About', 'Account']"
           @click="s.toScene(scene)"
         >
           {{t(scene)}}

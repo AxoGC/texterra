@@ -7,16 +7,16 @@ import Cheat from "./Cheat.vue";
 import Save from "./Save.vue";
 import Setting from "./Setting.vue";
 import Item from "./Item.vue";
-import Donation from "./Donation.vue";
 import Map from "./Map.vue";
 import Account from "./Account.vue";
+import About from "./About.vue";
 
 const systems: Record<string, Component> = {
+  About,
   Account,
   Achievement,
   Attribute,
   Cheat,
-  Donation,
   Item,
   Map,
   Quest,

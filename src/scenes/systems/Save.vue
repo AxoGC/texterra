@@ -13,7 +13,6 @@ const { t } = useI18n({ messages: {
   zh: {
     saveList: '存档列表',
     name: '名称',
-    createdAt: '创建时间',
     updatedAt: '更新时间',
     operation: '操作',
     saveName: '存档名',
@@ -48,7 +47,7 @@ const backupName = ref('')
       </el-input>
       <el-table :data="save.saves">
         <el-table-column :label="t('name')" prop="name" />
-        <el-table-column :label="t('createdAt')" :formatter="({ createdAt }) => dayjs(createdAt).format('YYYY/MM/DD hh:mm')" />
+        <el-table-column :label="t('updatedAt')" :formatter="({ updatedAt }) => dayjs(updatedAt).format('YYYY/MM/DD hh:mm:ss')" />
         <el-table-column :label="t('operation')">
           <template #default="{ row }">
             <el-popconfirm :title="t('loadConfirm')" @confirm="save.load(row.id)">
