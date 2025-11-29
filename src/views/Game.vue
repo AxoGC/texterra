@@ -18,7 +18,7 @@ const md = useBreakpoints(breakpointsTailwind).greaterOrEqual('md')
       <sidebar-desktop v-if="md" />
       <sidebar-mobile v-else />
     </div>
-    <div class="grow overflow-auto">
+    <div class="grow basis-0 overflow-auto">
       <component v-if="scenes[s.scene]" :is="scenes[s.scene]" />
       <empty-scene v-else />
     </div>

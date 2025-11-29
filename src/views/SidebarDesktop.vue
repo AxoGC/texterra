@@ -11,6 +11,7 @@ import VChart from 'vue-echarts';
 import {CanvasRenderer} from 'echarts/renderers';
 import gamemap from '@/gamemap.json';
 import {ScatterChart} from 'echarts/charts';
+import items from '@/items';
 
 use([
   ScatterChart,
@@ -34,7 +35,7 @@ const { t } = useI18n({ messages: {
     Cheat: '作弊',
     Map: '地图',
     Setting: '设置',
-    Account: '账户',
+    Community: '社区',
     weekday1: '星期一',
     weekday2: '星期二',
     weekday3: '星期三',
@@ -77,13 +78,14 @@ const curQuestStep = computed(() => {
   if (!curStepId) { return undefined }
   return curQuest.steps[curStepId]
 })
+
 </script>
 
 <template>
   <div class="min-h-full flex flex-col">
 
-    <v-chart class="aspect-video" :option="option" autoresize>
-    </v-chart>
+    <v-chart class="aspect-video" :option="option" autoresize />
+    <div class="h-px bg-tertiary" />
 
     <div class="px-4 py-2 flex flex-col gap-2">
       <div class="flex justify-between text-sm">
@@ -118,7 +120,12 @@ const curQuestStep = computed(() => {
         <el-button :icon="ArrowRight" @click="s.toScene('Item')">{{t('more')}}</el-button>
       </div>
       <div class="grid grid-cols-4 gap-2">
-        <div v-for="_ in 8" class="bg-tertiary rounded-2xl aspect-square">
+        <div 
+          v-for="item in s.items.slice(0, 8)" 
+          class="bg-tertiary rounded-2xl aspect-square relative flex justify-center items-center"
+        >
+          <div class="text-3xl">{{items[item.id]?.icon}}</div>
+          <div class="absolute right-1 bottom-0.5 text-sm">{{item.count}}</div>
         </div>
       </div>
     </div>
@@ -127,7 +134,7 @@ const curQuestStep = computed(() => {
       <el-config-provider :button="{ text: false, round: true }">
         <el-button
           class="ml-0!"
-          v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'About', 'Account']"
+          v-for="scene in ['Map', 'Attribute', 'Achievement', 'Cheat', 'Save', 'Setting', 'About', 'Community']"
           @click="s.toScene(scene)"
         >
           {{t(scene)}}

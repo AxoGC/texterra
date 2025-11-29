@@ -45,7 +45,7 @@ function isFinished(quest: Quest, curSteps: string[]): boolean {
           <template #title>
             <div class="flex items-center gap-2">
               <div>{{quests[q]?.name[$i18n.locale]}}</div>
-              <el-tag :type="isFinished(quests[q], s.quests[q]) ? 'info' : 'warning'">
+              <el-tag :type="isFinished(quests[q], s.quests[q]) ? 'info' : 'warning'" round>
                 {{isFinished(quests[q], s.quests[q]) ? t('finished') : t('active')}}
               </el-tag>
               <el-button 

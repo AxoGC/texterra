@@ -4,6 +4,7 @@ import {ElMessage, ElNotification} from 'element-plus';
 import achievements from './game/achievements';
 import quests from './game/quests';
 import i18n from './locale';
+import items from './items';
 
 export interface ItemInstance {
   id: string;
@@ -17,7 +18,18 @@ const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v))
 const useStat = defineStore('stat', {
   state: () => ({
     scenes: ['Start'] as string[],
-    items: [] as ItemInstance[],
+    items: [
+      { id: "wooden_sword" },
+      { id: "iron_sword" },
+      { id: "small_health_potion", count: 3 },
+      { id: "large_health_potion", count: 1 },
+      { id: "leather_armor" },
+      { id: "magic_amulet" },
+      { id: "ancient_artifact" },
+      { id: "coin", count: 150 },
+      { id: "bread", count: 5 },
+      { id: "energy_drink", count: 2 },
+    ] as ItemInstance[],
     rawTime: 0,
     money: 1000,
     statuses: {
@@ -73,21 +85,21 @@ const useStat = defineStore('stat', {
   },
   actions: {
     toScene(scene: string) {
-      if (scene && scenes[scene]) {
-        if (this.scenes.length > 99) {
-          this.scenes.splice(0, this.scenes.length-99)
-        }
-        this.scenes.push(scene)
-      } else {
+      if (!scene || !scenes[scene]) {
         ElMessage.error(`Scene ${scene} not exist!`)
+        return
       }
+      if (this.scenes.length > 99) {
+        this.scenes.splice(0, this.scenes.length-99)
+      }
+      this.scenes.push(scene)
     },
     backScene() {
-      if (this.scenes.length > 1) {
-        this.scenes.pop()
-      } else {
+      if (this.scenes.length < 2) {
         ElMessage.error('Scenes length too short!')
+        return
       }
+      this.scenes.pop()
     },
     addTime(duration: number) {
       return this.rawTime += duration
@@ -97,10 +109,9 @@ const useStat = defineStore('stat', {
       if (result < 0) {
         ElMessage.warning(`Money not enough.`)
         return false
-      } else {
-        this.money = result
-        return true
       }
+      this.money = result
+      return true
     },
     addStatuses(statuses: Record<Status, number>) {
       (Object.keys(statuses) as Status[]).forEach(status => {
@@ -112,8 +123,86 @@ const useStat = defineStore('stat', {
         this.attributes[attribute] = clamp(this.attributes[attribute] + attributes[attribute])
       })
     },
-    addItems(items: ItemInstance[]): boolean { return Boolean(items) }, // TODO
-    delItems(items: ItemInstance[]): boolean { return Boolean(items) }, // TODO
+    addItems(incoming: ItemInstance[]): boolean {
+      for (const { id, count = 1 } of incoming) {
+        if (!items[id]) {
+          ElMessage.error(`Item ${id} not exist!`)
+          return false
+        }
+        if (count <= 0) {
+          ElMessage.error(`Item ${id} has invalid count: ${count}`)
+          return false
+        }
+      }
+      for (const { id, count = 1 } of incoming) {
+        const tmpl = items[id]
+        const maxStack = tmpl!.stack
+        let remain = count
+        if (maxStack) {
+          for (const inst of this.items) {
+            if (inst.id === id && inst.count! < maxStack && remain > 0) {
+              const space = maxStack - inst.count!
+              const add = Math.min(space, remain)
+              inst.count! += add
+              remain -= add
+            }
+          }
+        }
+        while (remain > 0) {
+          if (maxStack) {
+            const add = Math.min(maxStack, remain)
+            this.items.push({ id, count: add })
+            remain -= add
+          } else {
+            this.items.push({ id })
+            remain = 0
+          }
+        }
+      }
+      return true
+    },
+    hasItems(check: ItemInstance[]): boolean {
+      for (const { id, count = 1 } of check) {
+        if (count <= 0) continue
+        let owned = 0
+        for (const inst of this.items) {
+          if (inst.id === id) {
+            owned += inst.count ?? 1
+          }
+        }
+        if (owned < count) return false
+      }
+      return true
+    },
+    delItems(incoming: ItemInstance[]): boolean {
+      if (!this.hasItems(incoming)) {
+        ElMessage.warning(`Items not enough.`);
+        return false;
+      }
+      for (const { id, count = 1 } of incoming) {
+        let remove = count;
+        const tmpl = items[id];
+        const maxStack = tmpl?.stack ?? 1;
+        for (let i = 0; i < this.items.length && remove > 0; i++) {
+          const inst = this.items[i]!;
+          if (inst.id !== id) continue;
+          if (maxStack > 1) {
+            const take = Math.min(inst.count!, remove);
+            inst.count! -= take;
+            remove -= take;
+            if (inst.count! <= 0) {
+              this.items.splice(i, 1);
+              i--;
+            }
+          } else {
+            this.items.splice(i, 1);
+            remove -= 1;
+            i--;
+          }
+        }
+      }
+      return true;
+    },
     setFlags(flags: Record<string, any>) {
       Object.assign(this.flags, flags)
     },
@@ -124,13 +213,17 @@ const useStat = defineStore('stat', {
       const achievement = achievements.find(achievement => achievement.id === id)
       if (!achievement) {
         ElMessage.error(`Achievement ${id} not exist!`)
-      } else if (!this.achievements[id]) {
-        ElNotification({ 
-          title: achievement.name[i18n.global.locale], 
-          message: achievement.description[i18n.global.locale],
-        })
-        this.achievements[id] = true
+        return
+      } 
+      if (this.achievements[id]) {
+        ElMessage.warning(`Achievement ${achievement.name} already achieved!`)
+        return
       }
+      ElNotification({ 
+        title: achievement.name[i18n.global.locale], 
+        message: achievement.description[i18n.global.locale],
+      })
+      this.achievements[id] = true
     },
     advanceQuest(questId: string, stepId: string) {
       const quest = quests[questId]

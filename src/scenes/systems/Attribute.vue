@@ -19,6 +19,7 @@ const { t } = useI18n({ messages: {
     attribute: '属性',
     attributeTitle: '属性列表',
     radarTitle: '属性图',
+    level: '{value} 级',
   },
 } })
 
@@ -27,14 +28,14 @@ const option = ref<EChartsOption>({
     trigger: 'item',
   },
   radar: {
-    indicator: Object.keys(s.attributes).map(key => ({ name: t(key), max: 100 })),
+    indicator: Object.keys(s.attributes).map(key => ({ name: t(key), max: 10 })),
     radius: '70%',
   },
   series: [{
     name: t('attribute'),
     type: 'radar',
     data: [{
-      value: (Object.keys(s.attributes) as Attribute[]).map(key => s.attributes[key]),
+      value: (Object.keys(s.attributes) as Attribute[]).map(key => Math.floor(s.attributes[key] / 10)),
     }]
   }]
 })
@@ -59,7 +60,11 @@ const option = ref<EChartsOption>({
             <template #reference>
               <div class="flex gap-2">
                 <div class="w-20">{{t(key)}}</div>
-                <el-progress class="grow" :percentage="value" text-inside :stroke-width="28" />
+                <el-progress class="grow" :percentage="value" text-inside :stroke-width="28">
+                  <template #default="{ percentage }">
+                    {{t('level', { value: Math.floor(percentage / 10) })}}
+                  </template>
+                </el-progress>
               </div>
             </template>
           </el-popover>
