@@ -56,7 +56,7 @@ const option = ref<EChartsOption>({
       <div class="basis-1/2 card flex flex-col gap-4">
         <div class="text-lg">{{t('attributeTitle')}}</div>
         <div class="flex flex-col gap-4">
-          <el-popover v-for="value, key in s.attributes" :content="t(`${key}Note`)" placement="right">
+          <el-popover v-for="value, key in s.attributes" :content="t(`${key}Note`)">
             <template #reference>
               <div class="flex gap-2">
                 <div class="w-20">{{t(key)}}</div>

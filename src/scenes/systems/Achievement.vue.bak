@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import achievements from '@/game/achievements';
+import achievements, {type Achievement} from '@/game/achievements';
 import useStat from '@/stat';
 import {ArrowLeft} from '@element-plus/icons-vue';
 import {computed, ref} from 'vue';
@@ -82,10 +82,10 @@ const filteredAchievements = computed(() => {
       </el-segmented>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="a in filteredAchievements" :key="a.id" class="flex gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div v-for="a in filteredAchievements" :key="a.id" class="card h-24 flex gap-2">
         <div :class="[
-          'aspect-square rounded-2xl p-3 bg-subtle text-3xl flex justify-center items-center', 
+          'aspect-square rounded-2xl bg-main text-3xl flex justify-center items-center', 
           s.achievements[a.id] ? '': 'grayscale',
         ]">
           {{a.icon}}
