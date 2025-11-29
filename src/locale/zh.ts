@@ -5,6 +5,7 @@ const zh = {
   confirm: '确认',
   cancel: '取消',
 
+  health: '健康',
   satiety: '饱食',
   energy: '精力',
 
@@ -12,7 +13,6 @@ const zh = {
   agility: '敏捷',
   appearance: '外貌',
   spirit: '精神',
-  science: '科学',
   alchemy: '炼金',
   agriculture: '农业',
 
@@ -20,7 +20,6 @@ const zh = {
   agilityNote: '潜行、机关破解、复杂地形通过',
   appearanceNote: '说服、奖励、遭遇事件',
   spiritNote: '精力恢复、超自然事件',
-  scienceNote: '机械、蒸汽、光、电路制造',
   alchemyNote: '制药、制毒、炼金、挖矿',
   agricultureNote: '种植、畜牧、烹饪',
 }

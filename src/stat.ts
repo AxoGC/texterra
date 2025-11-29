@@ -16,8 +16,8 @@ export interface Save {
   createdAt: string;
 }
 
-export type Status = 'satiety' | 'energy'
-export type Attribute = 'strength' | 'agility' | 'appearance' | 'spirit' | 'science' | 'alchemy' | 'agriculture'
+export type Status = 'health' | 'satiety' | 'energy'
+export type Attribute = 'strength' | 'agility' | 'appearance' | 'spirit' | 'alchemy' | 'agriculture'
 const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
 
 const useStat = defineStore('stat', {
@@ -28,6 +28,7 @@ const useStat = defineStore('stat', {
     rawTime: 0,
     money: 1000,
     statuses: {
+      health: 100,
       satiety: 100,
       energy: 100,
     } as Record<Status, number>,
@@ -36,14 +37,27 @@ const useStat = defineStore('stat', {
       agility: 0,
       appearance: 0,
       spirit: 0,
-      science: 0,
       alchemy: 0,
       agriculture: 0,
     } as Record<Attribute, number>,
     flags: {} as Record<string, any>,
     achievements: {} as Record<string, true>,
-    activeQuests: [] as { questId: string, stepIndex: number }[],
-    finishedQuests: [] as string[],
+    questOrder: ['tutorial', 'mysterious_forest', 'daily_errands', 'master_alchemist'] as string[],
+    quests: {
+      "tutorial": ["start", "explore"],
+      "mysterious_forest": ["enter_forest", "find_artifact"],
+      "daily_errands": ["accept_chores", "gather_supplies", "report_gather"],
+      "master_alchemist": [
+        "begin_study", 
+        "gather_ingredients", 
+        "craft_basic", 
+        "learn_advanced", 
+        "gather_rare", 
+        "craft_masterpiece", 
+        "final_test", 
+        "become_master"
+      ],
+    } as Record<string, string[]>,
   }),
   getters: {
     scene: state => state.scenes[state.scenes.length - 1] ?? '',
@@ -129,40 +143,15 @@ const useStat = defineStore('stat', {
       const quest = quests[questId]
       if (!quest) {
         ElMessage.error(`Quest ${questId} not exist!`)
-      } else {
-        const step = quest.steps.find(step => step.id === stepId)
-        if (!step) {
-          ElMessage.error(`Quest step ${stepId} not exist!`)
-        } else {
-          const curQuest = this.activeQuests.find(aq => aq.questId === questId)
-          if (!curQuest) {
-            if (quest.steps[0]?.id === stepId) {
-              this.activeQuests.unshift({ questId: questId, stepIndex: 0 })
-              ElNotification({ title: quest.name, message: step.name })
-            } else {
-              ElMessage.warning('Please complete the previous step first.')
-            }
-          } else {
-            if (quest.steps[curQuest.stepIndex + 1]?.id === stepId) {
-              curQuest.stepIndex++
-              ElNotification({ title: quest.name, message: step.name })
-            } else {
-              ElMessage.warning('Please complete the previous step first.')
-            }
-          }
-        }
+        return
       }
-    },
-    finishQuest(questId: string) {
-      if (quests[questId]) {
-        const index = this.activeQuests.findIndex(aq => aq.questId === questId)
-        if (index !== -1) {
-          this.activeQuests.splice(index, 1)
-        }
-        if (!this.finishedQuests.some(id => id === questId)) {
-          this.finishedQuests.unshift(questId)
-        }
+      const step = quest.steps[stepId]
+      if (!step) {
+        ElMessage.error(`Quest step ${stepId} not exist!`)
+        return
       }
+      this.quests[questId] ? this.quests[questId].push(stepId) : this.quests[questId] = [stepId]
+      ElNotification({ title: quest.name[i18n.global.locale], message: step.name[i18n.global.locale] })
     },
   },
   persist: true,
