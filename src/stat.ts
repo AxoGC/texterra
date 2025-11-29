@@ -45,7 +45,13 @@ const useStat = defineStore('stat', {
       agriculture: 0,
     } as Record<Attribute, number>,
     flags: {} as Record<string, any>,
-    achievements: {} as Record<string, true>,
+    achievements: {
+      'first_blood': true,
+      'green_thumb': true,
+      'master_farmer': true,
+      'alchemist_apprentice': true, 
+      'first_steps': true,
+    } as Record<string, true>,
     questOrder: ['tutorial', 'mysterious_forest', 'daily_errands', 'master_alchemist'] as string[],
     quests: {
       "tutorial": ["start", "explore"],

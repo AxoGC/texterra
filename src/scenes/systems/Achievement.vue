@@ -84,7 +84,10 @@ const filteredAchievements = computed(() => {
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       <div v-for="a in filteredAchievements" :key="a.id" class="card h-24 flex gap-2">
-        <div class="aspect-square rounded-2xl bg-main text-3xl flex justify-center items-center">
+        <div :class="[
+          'aspect-square rounded-2xl bg-main text-3xl flex justify-center items-center', 
+          s.achievements[a.id] ? '': 'grayscale',
+        ]">
           {{a.icon}}
         </div>
         <div class="flex flex-col gap-2">
@@ -95,9 +98,6 @@ const filteredAchievements = computed(() => {
             </el-tag>
             <el-tag :type="categoryThemeMap[a.category] as any">
               {{t(a.category)}}
-            </el-tag>
-            <el-tag v-if="s.achievements[a.id]" type="warning">
-              {{t('achieved')}}
             </el-tag>
           </div>
           <div class="text-sm text-subtle">{{a.description[$i18n.locale]}}</div>
