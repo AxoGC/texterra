@@ -124,7 +124,15 @@ const curQuestStep = computed(() => {
           v-for="item in s.items.slice(0, 8)" 
           class="bg-tertiary rounded-2xl aspect-square relative flex justify-center items-center"
         >
-          <div class="text-3xl">{{items[item.id]?.icon}}</div>
+          <el-popover
+            v-if="items[item.id]"
+            :title="items[item.id]?.name[$i18n.locale]"
+            :content="items[item.id]?.description[$i18n.locale]"
+          >
+            <template #reference>
+              <div class="text-2xl">{{items[item.id]?.icon}}</div>
+            </template>
+          </el-popover>
           <div class="absolute right-1 bottom-0.5 text-sm">{{item.count}}</div>
         </div>
       </div>

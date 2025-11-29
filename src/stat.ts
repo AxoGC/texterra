@@ -21,8 +21,7 @@ const useStat = defineStore('stat', {
     items: [
       { id: "wooden_sword" },
       { id: "iron_sword" },
-      { id: "small_health_potion", count: 3 },
-      { id: "large_health_potion", count: 1 },
+      { id: "health_potion", count: 3 },
       { id: "leather_armor" },
       { id: "magic_amulet" },
       { id: "ancient_artifact" },

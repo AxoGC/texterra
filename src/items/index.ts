@@ -1,8 +1,16 @@
+import type {Attribute, Status} from "@/stat";
+
 export interface ItemTemplate {
   name: Record<string, string>;
   description: Record<string, string>;
   icon: string;
   stack?: number;
+  effect?: Effect;
+}
+
+export interface Effect {
+  addStatuses?: Partial<Record<Status, number>>;
+  addAttributes?: Partial<Record<Attribute, number>>;
 }
 
 const items: Record<string, ItemTemplate> = {
@@ -15,32 +23,28 @@ const items: Record<string, ItemTemplate> = {
   },
   
   // 消耗品类
-  "small_health_potion": {
-    name: { "en": "Small Health Potion", "zh": "小型生命药水" },
-    description: { "en": "Restores a small amount of health", "zh": "恢复少量生命值" },
+  "health_potion": {
+    name: { "en": "Health Potion", "zh": "生命药水" },
+    description: { "en": "Restores health", "zh": "恢复生命值" },
     icon: "🧪",
-    stack: 10
-  },
-  
-  "large_health_potion": {
-    name: { "en": "Large Health Potion", "zh": "大型生命药水" },
-    description: { "en": "Restores a large amount of health", "zh": "恢复大量生命值" },
-    icon: "🔮",
-    stack: 5
+    stack: 10,
+    effect: { addStatuses: { health: 10 } },
   },
   
   "bread": {
     name: { "en": "Bread", "zh": "面包" },
     description: { "en": "Freshly baked bread, restores satiety", "zh": "新鲜烤制的面包，恢复饱食度" },
     icon: "🍞",
-    stack: 20
+    stack: 20,
+    effect: { addStatuses: { satiety: 10 } },
   },
   
   "energy_drink": {
     name: { "en": "Energy Drink", "zh": "能量饮料" },
     description: { "en": "Restores energy quickly", "zh": "快速恢复能量" },
     icon: "🥤",
-    stack: 8
+    stack: 8,
+    effect: { addStatuses: { energy: 10 } },
   },
   
   // 材料类
@@ -48,14 +52,14 @@ const items: Record<string, ItemTemplate> = {
     name: { "en": "Medicinal Herb", "zh": "药草" },
     description: { "en": "Common herb used in alchemy", "zh": "炼金术中常用的草药" },
     icon: "🌿",
-    stack: 50
+    stack: 50,
   },
   
   "rare_herb": {
     name: { "en": "Rare Herb", "zh": "稀有草药" },
     description: { "en": "Rare herb with magical properties", "zh": "具有魔法特性的稀有草药" },
     icon: "🍀",
-    stack: 20
+    stack: 20,
   },
   
   "iron_ore": {
@@ -69,10 +73,9 @@ const items: Record<string, ItemTemplate> = {
     name: { "en": "Magic Crystal", "zh": "魔法水晶" },
     description: { "en": "Crystal infused with magical energy", "zh": "充满魔法能量的水晶" },
     icon: "💎",
-    stack: 5
+    stack: 5,
   },
   
-  // 装备类（不可堆叠）
   "wooden_sword": {
     name: { "en": "Wooden Sword", "zh": "木剑" },
     description: { "en": "Beginner's training sword", "zh": "初学者训练用剑" },
@@ -122,7 +125,8 @@ const items: Record<string, ItemTemplate> = {
     name: { "en": "Carrot", "zh": "胡萝卜" },
     description: { "en": "Fresh carrot, can be eaten or used in cooking", "zh": "新鲜胡萝卜，可以食用或用于烹饪" },
     icon: "🥕",
-    stack: 40
+    stack: 40,
+    effect: { addStatuses: { satiety: 10 } },
   },
   
   // 炼金相关
@@ -131,13 +135,6 @@ const items: Record<string, ItemTemplate> = {
     description: { "en": "Empty glass bottle for potion making", "zh": "用于制作药剂的空玻璃瓶" },
     icon: "🍶",
     stack: 25
-  },
-  
-  "mana_potion": {
-    name: { "en": "Mana Potion", "zh": "法力药水" },
-    description: { "en": "Restores spiritual energy", "zh": "恢复精神能量" },
-    icon: "🔵",
-    stack: 8
   },
   
   // 新增一些有趣物品
@@ -163,7 +160,8 @@ const items: Record<string, ItemTemplate> = {
     name: { "en": "Apple", "zh": "苹果" },
     description: { "en": "Fresh red apple, nutritious and delicious", "zh": "新鲜的红苹果，营养又美味" },
     icon: "🍎",
-    stack: 30
+    stack: 30,
+    effect: { addStatuses: { satiety: 10 } },
   }
 }
 
