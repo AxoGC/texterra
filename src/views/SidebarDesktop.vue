@@ -31,6 +31,12 @@ const { t } = useI18n({ messages: {
   },
 } })
 
+const curQuest = computed(() => {
+  const curQuestId = s.questOrder[0]
+  if (!curQuestId) { return undefined }
+  return quests[curQuestId]
+})
+
 const curQuestStep = computed(() => {
   const curQuestId = s.questOrder[0]
   if (!curQuestId) { return undefined }
@@ -70,9 +76,13 @@ const curQuestStep = computed(() => {
         <div>{{t('quest')}}</div>
         <el-button :icon="ArrowRight" @click="s.toScene('Quest')">{{t('more')}}</el-button>
       </div>
-      <div v-if="curQuestStep" class="bg-main rounded-2xl p-2">
-        <div class="text-sm">{{curQuestStep.name[$i18n.locale]}}</div>
-        <div class="text-sm text-subtle truncate">{{curQuestStep.description[$i18n.locale]}}</div>
+      <div v-if="curQuest && curQuestStep" class="bg-main rounded-2xl p-2">
+        <div class="text-sm truncate">
+          {{curQuestStep.name[$i18n.locale]}} | {{curQuest.name[$i18n.locale]}}
+        </div>
+        <div class="text-sm text-subtle truncate">
+          {{curQuestStep.description[$i18n.locale]}}
+        </div>
       </div>
     </div>
 

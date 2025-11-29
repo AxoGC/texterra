@@ -10,12 +10,6 @@ export interface ItemInstance {
   count?: number;
 }
 
-export interface Save {
-  id: string;
-  name: string;
-  createdAt: string;
-}
-
 export type Status = 'health' | 'satiety' | 'energy'
 export type Attribute = 'strength' | 'agility' | 'appearance' | 'spirit' | 'alchemy' | 'agriculture'
 const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v));
@@ -23,7 +17,6 @@ const clamp = (v: number, min = 0, max = 100) => Math.min(max, Math.max(min, v))
 const useStat = defineStore('stat', {
   state: () => ({
     scenes: ['Start'] as string[],
-    saves: [] as Save[],
     items: [] as ItemInstance[],
     rawTime: 0,
     money: 1000,
