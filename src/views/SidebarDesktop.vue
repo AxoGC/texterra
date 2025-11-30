@@ -54,6 +54,7 @@ const option = ref<EChartsOption>({
   geo: {
     map: 'gamemap',
     roam: true,
+    zoom: 2,
     label: {
       show: true,
       color: '#555'

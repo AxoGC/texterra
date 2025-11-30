@@ -10,6 +10,7 @@ import Item from "./Item.vue";
 import Map from "./Map.vue";
 import About from "./About.vue";
 import Community from "./Community.vue";
+import AttributeAllocation from "./AttributeAllocation.vue";
 
 const systems: Record<string, Component> = {
   About,
@@ -23,6 +24,7 @@ const systems: Record<string, Component> = {
   Save,
   Setting,
   Start,
+  AttributeAllocation,
 }
 
 export default systems

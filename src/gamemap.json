@@ -6,12 +6,15 @@
       "id": "central_city",
       "properties": {
         "name": "中央城市",
-        "cp": [0, 0]
+        "type": "urban",
+        "cp": [0, 0],
+        "description": "王国的政治与经济中心，繁华的都市"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [-1, -1], [1, -1], [1, 1], [-1, 1], [-1, -1]
+          [-0.8, -0.6], [0.7, -0.8], [1.2, 0.3], [0.4, 1.1], 
+          [-0.9, 0.8], [-1.3, 0.1], [-0.8, -0.6]
         ]]
       }
     },
@@ -19,13 +22,17 @@
       "type": "Feature",
       "id": "northern_forest",
       "properties": {
-        "name": "北部森林",
-        "cp": [0, 3]
+        "name": "迷雾森林",
+        "type": "forest",
+        "cp": [0.2, 3.2],
+        "description": "古老的魔法森林，充满神秘生物"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [-2, 2], [2, 2], [2, 4], [-2, 4], [-2, 2]
+          [-2.8, 1.8], [-1.2, 1.5], [0.5, 1.9], [2.3, 2.1],
+          [2.8, 3.2], [1.9, 4.3], [-0.8, 4.6], [-2.5, 3.8],
+          [-3.1, 2.6], [-2.8, 1.8]
         ]]
       }
     },
@@ -33,13 +40,17 @@
       "type": "Feature",
       "id": "eastern_mountains",
       "properties": {
-        "name": "东部山脉",
-        "cp": [4, 0]
+        "name": "龙脊山脉",
+        "type": "mountain",
+        "cp": [4.5, 0.3],
+        "description": "险峻的山脉，传说有龙族栖息"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [3, -1], [5, -1], [5, 1], [3, 1], [3, -1]
+          [2.8, -1.2], [4.2, -1.8], [5.8, -0.9], [6.3, 0.8],
+          [5.6, 2.1], [4.1, 2.8], [2.6, 1.9], [2.1, 0.2],
+          [2.8, -1.2]
         ]]
       }
     },
@@ -47,13 +58,17 @@
       "type": "Feature",
       "id": "southern_desert",
       "properties": {
-        "name": "南部沙漠",
-        "cp": [0, -3]
+        "name": "炙热沙漠",
+        "type": "desert",
+        "cp": [0.5, -3.5],
+        "description": "广阔的沙漠，隐藏着古代遗迹"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [-2, -4], [2, -4], [2, -2], [-2, -2], [-2, -4]
+          [-2.2, -2.8], [-0.8, -3.2], [1.2, -3.8], [3.1, -3.1],
+          [2.8, -1.9], [1.3, -1.5], [-0.9, -1.8], [-2.6, -2.1],
+          [-2.2, -2.8]
         ]]
       }
     },
@@ -61,13 +76,102 @@
       "type": "Feature",
       "id": "western_ocean",
       "properties": {
-        "name": "西部海洋",
-        "cp": [-4, 0]
+        "name": "无尽之海",
+        "type": "ocean",
+        "cp": [-4.2, 0.1],
+        "description": "浩瀚的海洋，通往未知的世界"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [-5, -2], [-3, -2], [-3, 2], [-5, 2], [-5, -2]
+          [-6.2, -1.8], [-4.8, -2.3], [-3.1, -1.6], [-2.6, 0.2],
+          [-3.3, 1.9], [-4.9, 2.6], [-6.3, 1.8], [-6.8, 0.3],
+          [-6.2, -1.8]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "volcanic_highlands",
+      "properties": {
+        "name": "火山高地",
+        "type": "volcanic",
+        "cp": [3.2, 2.8],
+        "description": "活跃的火山区域，富含矿物资源"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [2.1, 1.9], [3.8, 2.1], [4.6, 3.2], [3.9, 4.1],
+          [2.3, 3.8], [1.6, 2.9], [2.1, 1.9]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "frozen_tundra",
+      "properties": {
+        "name": "冰封苔原",
+        "type": "tundra",
+        "cp": [-1.8, -2.2],
+        "description": "寒冷的苔原，生存环境恶劣"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-3.2, -3.1], [-1.9, -3.8], [-0.3, -2.9], [-0.8, -1.2],
+          [-2.3, -0.8], [-3.6, -1.5], [-3.2, -3.1]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "crystal_lake",
+      "properties": {
+        "name": "水晶湖",
+        "type": "lake",
+        "cp": [-0.3, 2.1],
+        "description": "清澈的湖泊，湖水具有魔法特性"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-1.2, 1.6], [0.5, 1.3], [0.9, 2.5], [-0.2, 3.1],
+          [-1.5, 2.8], [-1.2, 1.6]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ancient_ruins",
+      "properties": {
+        "name": "古代遗迹",
+        "type": "ruins",
+        "cp": [2.8, -2.3],
+        "description": "失落的文明遗迹，充满谜题和宝藏"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [2.1, -3.2], [3.6, -3.5], [4.2, -2.1], [3.3, -1.3],
+          [2.2, -1.8], [2.1, -3.2]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "coastal_village",
+      "properties": {
+        "name": "渔人村落",
+        "type": "coastal",
+        "cp": [-3.8, 1.2],
+        "description": "宁静的海边村落，以渔业为生"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.6, 0.3], [-3.9, -0.2], [-3.1, 0.6], [-3.3, 1.9],
+          [-4.2, 2.3], [-5.1, 1.6], [-4.6, 0.3]
         ]]
       }
     }

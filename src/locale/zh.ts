@@ -5,6 +5,7 @@ const zh = {
   confirm: '确认',
   cancel: '取消',
   delete: '删除',
+  clear: '清除',
 
   health: '健康',
   satiety: '饱食',

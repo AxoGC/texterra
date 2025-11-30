@@ -53,6 +53,8 @@ const curQuestStep = computed(() => {
 <template>
   <div class="flex flex-col">
 
+    <div class="bg-tertiary h-px" />
+
     <div class="px-4 py-1 flex flex-col gap-2">
       <div class="flex justify-between text-sm">
         <div>💰{{s.money}}</div>
