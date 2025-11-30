@@ -86,7 +86,7 @@ const curQuestStep = computed(() => {
       </div>
     </div>
 
-    <div class="px-2 py-1 flex justify-center gap-2">
+    <div class="px-2 py-1 flex justify-center gap-2 select-none">
       <div 
         v-for="item in s.items.slice(0, 5)" 
         class="size-12 bg-tertiary rounded-2xl aspect-square relative flex justify-center items-center"

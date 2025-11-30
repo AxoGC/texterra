@@ -5,9 +5,9 @@ export interface Quest {
 }
 
 export interface QuestStep {
-  next: string[];
   name: Record<string, string>;
   description: Record<string, string>;
+  end?: true;
 }
 
 const quests: Record<string, Quest> = {
@@ -23,7 +23,6 @@ const quests: Record<string, Quest> = {
     },
     steps: {
       "start": {
-        next: ["explore"],
         name: {
           "zh": "开始冒险",
           "en": "Start Adventure"
@@ -34,7 +33,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "explore": {
-        next: ["collect"],
         name: {
           "zh": "探索周围",
           "en": "Explore Surroundings"
@@ -45,7 +43,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "collect": {
-        next: ["complete"],
         name: {
           "zh": "收集资源",
           "en": "Collect Resources"
@@ -56,7 +53,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "complete": {
-        next: [],
         name: {
           "zh": "完成任务",
           "en": "Complete Quest"
@@ -64,7 +60,8 @@ const quests: Record<string, Quest> = {
         description: {
           "zh": "恭喜！你已经完成了新手引导。现在你可以自由探索这个世界了。",
           "en": "Congratulations! You have completed the tutorial. Now you can freely explore the world."
-        }
+        },
+        end: true,
       }
     }
   },
@@ -81,7 +78,6 @@ const quests: Record<string, Quest> = {
     },
     steps: {
       "enter_forest": {
-        next: ["find_artifact", "help_trader"],
         name: {
           "zh": "进入森林",
           "en": "Enter the Forest"
@@ -92,7 +88,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "find_artifact": {
-        next: ["solve_puzzle"],
         name: {
           "zh": "寻找古代遗物",
           "en": "Find Ancient Artifact"
@@ -103,7 +98,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "help_trader": {
-        next: ["deliver_goods"],
         name: {
           "zh": "帮助商人",
           "en": "Help the Merchant"
@@ -114,7 +108,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "solve_puzzle": {
-        next: ["final_reward"],
         name: {
           "zh": "解开古老谜题",
           "en": "Solve Ancient Puzzle"
@@ -125,7 +118,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "deliver_goods": {
-        next: ["trader_reward"],
         name: {
           "zh": "运送货物",
           "en": "Deliver Goods"
@@ -136,7 +128,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "final_reward": {
-        next: [],
         name: {
           "zh": "获得遗物奖励",
           "en": "Receive Artifact Reward"
@@ -147,7 +138,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "trader_reward": {
-        next: [],
         name: {
           "zh": "商人的感谢",
           "en": "Merchant's Gratitude"
@@ -155,7 +145,8 @@ const quests: Record<string, Quest> = {
         description: {
           "zh": "商人非常感谢你的帮助，给了你丰厚的报酬和珍贵的物品。",
           "en": "The merchant is very grateful for your help and gives you generous rewards and precious items."
-        }
+        },
+        end: true,
       }
     }
   },
@@ -172,7 +163,6 @@ const quests: Record<string, Quest> = {
     },
     steps: {
       "accept_chores": {
-        next: ["gather_supplies", "deliver_items"],
         name: {
           "zh": "接受任务",
           "en": "Accept Tasks"
@@ -183,7 +173,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "gather_supplies": {
-        next: ["report_gather"],
         name: {
           "zh": "收集物资",
           "en": "Gather Supplies"
@@ -194,7 +183,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "deliver_items": {
-        next: ["report_deliver"],
         name: {
           "zh": "配送物品",
           "en": "Deliver Items"
@@ -205,7 +193,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "report_gather": {
-        next: ["complete_daily"],
         name: {
           "zh": "汇报收集情况",
           "en": "Report Gathering"
@@ -216,7 +203,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "report_deliver": {
-        next: ["complete_daily"],
         name: {
           "zh": "汇报配送情况",
           "en": "Report Delivery"
@@ -227,7 +213,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "complete_daily": {
-        next: [],
         name: {
           "zh": "完成日常任务",
           "en": "Complete Daily Tasks"
@@ -235,8 +220,9 @@ const quests: Record<string, Quest> = {
         description: {
           "zh": "你成功完成了今天的日常任务！村民们都很感谢你的帮助。",
           "en": "You have successfully completed today's daily tasks! The villagers are grateful for your help."
-        }
-      }
+        },
+        end: true,
+      },
     }
   },
 
@@ -252,7 +238,6 @@ const quests: Record<string, Quest> = {
     },
     steps: {
       "begin_study": {
-        next: ["gather_ingredients"],
         name: {
           "zh": "开始学习",
           "en": "Begin Studies"
@@ -263,7 +248,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "gather_ingredients": {
-        next: ["craft_basic"],
         name: {
           "zh": "收集基础材料",
           "en": "Gather Basic Ingredients"
@@ -274,7 +258,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "craft_basic": {
-        next: ["learn_advanced"],
         name: {
           "zh": "制作基础药剂",
           "en": "Craft Basic Potions"
@@ -285,7 +268,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "learn_advanced": {
-        next: ["gather_rare"],
         name: {
           "zh": "学习高级配方",
           "en": "Learn Advanced Formulas"
@@ -296,7 +278,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "gather_rare": {
-        next: ["craft_masterpiece"],
         name: {
           "zh": "收集稀有材料",
           "en": "Gather Rare Materials"
@@ -307,7 +288,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "craft_masterpiece": {
-        next: ["final_test"],
         name: {
           "zh": "制作杰作",
           "en": "Craft Masterpiece"
@@ -318,7 +298,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "final_test": {
-        next: ["become_master"],
         name: {
           "zh": "最终考验",
           "en": "Final Test"
@@ -329,7 +308,6 @@ const quests: Record<string, Quest> = {
         }
       },
       "become_master": {
-        next: [],
         name: {
           "zh": "成为大师",
           "en": "Become a Master"
@@ -337,7 +315,8 @@ const quests: Record<string, Quest> = {
         description: {
           "zh": "恭喜！你已成功通过所有考验，正式成为一名炼金术大师！",
           "en": "Congratulations! You have successfully passed all tests and officially become a Master Alchemist!"
-        }
+        },
+        end: true,
       }
     }
   }

@@ -25,7 +25,7 @@ function isFinished(quest: Quest, curSteps: string[]): boolean {
   if (!curStep) {
     return false
   }
-  return curStep.next.length === 0
+  return curStep.end === true
 }
 </script>
 
