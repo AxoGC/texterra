@@ -42,6 +42,7 @@ const categoryThemeMap = {
   collection: 'default',
 }
 
+const status = ref('all') 
 const rarities = ['all', 'common', 'rare', 'epic']
 const rarity = ref('all')
 const categories = ['all', 'agriculture', 'alchemy', 'combat', 'exploration', 'achievement', 'collection']
@@ -54,6 +55,9 @@ const filteredAchievements = computed(() => {
   }
   if (category.value !== 'all') {
     filtered = filtered.filter(a => a.category === category.value)
+  }
+  if (status.value !== 'all') {
+    filtered = filtered.filter(a => s.achievements[a.id])
   }
   return filtered
 })
@@ -70,6 +74,11 @@ const filteredAchievements = computed(() => {
     </div>
     
     <div class="flex items-center gap-4 flex-wrap">
+      <el-segmented v-model="status" :options="['all', 'achieved']">
+        <template #default="{ item }">
+          {{t(item)}}
+        </template>
+      </el-segmented>
       <el-segmented v-model="rarity" :options="rarities">
         <template #default="{ item }">
           {{t(item)}}
