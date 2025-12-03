@@ -1,5 +1,15 @@
 # game
 
+![example-1](./examples/example-1.png)
+
+![example-2](./examples/example-2.png)
+
+![example-3](./examples/example-3.png)
+
+![example-4](./examples/example-4.png)
+
+![example-5](./examples/example-5.png)
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
